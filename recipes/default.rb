@@ -15,14 +15,24 @@ package node[:libarchive][:package_name] do
   action :nothing
 end.run_action(:upgrade)
 
+include_recipe "gem_specific_install"
+
 if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
   chef_gem 'ffi-libarchive' do
-    version '~> 0.2.0'
+    provider Chef::Provider::Package::Rubygems::SpecificInstall
+    options({
+      repo: 'https://github.com/patcon/ffi-libarchive.git',
+      branch: 'test/support-non-archives',
+    })
     compile_time true
   end
 else
   chef_gem 'ffi-libarchive' do
-    version '~> 0.2.0'
+    provider Chef::Provider::Package::Rubygems::SpecificInstall
+    options({
+      repo: 'https://github.com/patcon/ffi-libarchive.git',
+      branch: 'test/support-non-archives',
+    })
     action :nothing
   end.run_action(:install)
 end

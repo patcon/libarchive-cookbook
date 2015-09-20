@@ -12,5 +12,6 @@ supports "redhat"
 supports "arch"
 supports "mac_os_x"
 
+depends "gem_specific_install"
 depends "apt", "~> 2.5"
 depends "yum-epel", "~> 0.6"
